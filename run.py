@@ -1,7 +1,7 @@
 from loguru import logger
 
-from bot import start_bot
-from bot.misc import get_root_dir
+from app import start_bot
+from utils import get_root_dir
 
 
 def main() -> None:

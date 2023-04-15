@@ -1,13 +1,13 @@
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.utils.exceptions import TelegramAPIError
 from aiogram.utils import executor
+from aiogram.utils.exceptions import TelegramAPIError
 from loguru import logger
 
-from bot.database.models import register_models
-from bot.filters import register_all_filters
-from bot.handlers import register_all_handlers
-from bot.misc import Env
+from app.filters import register_all_filters
+from app.handlers import register_all_handlers
+from data import Env
+from database.models import register_models
 
 
 async def __on_startup(dp: Dispatcher) -> None:
