@@ -1,5 +1,2 @@
 # Telegram
 aiogram
-
-# Debug
-loguru
