@@ -1,3 +1,5 @@
+from database import Database
+
+
 def register_models() -> None:
-    # TODO: Register models
-    pass
+    Database().BASE.metadata.create_all(Database().engine)
