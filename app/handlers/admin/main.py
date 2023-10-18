@@ -1,6 +1,3 @@
-from aiogram import Dispatcher
+from aiogram import Router
 
-
-def register_admin_handlers(dp: Dispatcher) -> None:
-    # TODO: Register all admin handlers
-    pass
+admin_router = Router()

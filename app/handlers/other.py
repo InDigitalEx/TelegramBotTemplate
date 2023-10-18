@@ -1,6 +1,4 @@
-from aiogram import Dispatcher
+from aiogram import Router
+from aiogram.types import Message
 
-
-def register_other_handlers(dp: Dispatcher) -> None:
-    # TODO: Register all other handlers
-    pass
+other_router = Router()

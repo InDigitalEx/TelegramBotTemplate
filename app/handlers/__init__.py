@@ -1,1 +1,1 @@
-from .main import register_all_handlers
+from .main import handlers_router

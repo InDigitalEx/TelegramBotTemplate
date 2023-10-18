@@ -1,7 +1,8 @@
+import asyncio
 import logging
 from pathlib import Path
 
-from app import start_bot
+from app import run_bot
 from utils import get_root_dir
 
 
@@ -27,7 +28,7 @@ def init_logger() -> None:
 
 def main() -> None:
     init_logger()
-    start_bot()
+    asyncio.run(run_bot())
 
 
 if __name__ == "__main__":

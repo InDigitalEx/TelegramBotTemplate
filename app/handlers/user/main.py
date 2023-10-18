@@ -1,6 +1,3 @@
-from aiogram import Dispatcher
+from aiogram import Router
 
-
-def register_user_handlers(dp: Dispatcher) -> None:
-    # TODO: Register all user handlers
-    pass
+user_router = Router()
