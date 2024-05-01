@@ -1,1 +1,1 @@
-from .main import register_models
+from .main import register_database_models
