@@ -5,7 +5,7 @@ from pathlib import Path
 from sqlalchemy import log as sqlalchemy_log
 
 from app import run_bot
-from data import Config
+from data import config
 from utils import get_root_dir
 
 
@@ -31,7 +31,7 @@ def init_logger() -> None:
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
-    logger.setLevel(logging.DEBUG if Config.DEBUG else logging.INFO)
+    logger.setLevel(logging.DEBUG if config.debug else logging.INFO)
 
 
 def main() -> None:

@@ -1,8 +1,8 @@
 from aiogram import Router
 
-from app.handlers.admin import admin_router
-from app.handlers.other import other_router
-from app.handlers.user import user_router
+from .admin import admin_router
+from .other import other_router
+from .user import user_router
 
 handlers_router = Router()
 
