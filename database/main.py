@@ -1,25 +1,33 @@
-from typing import Final
+from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-
+from data import config
 from utils import SingletonMeta, get_root_dir
+from .models import Base
 
 
 class Database(metaclass=SingletonMeta):
-    BASE: Final = declarative_base()
-
     def __init__(self):
         root_dir = get_root_dir()
-        self._engine = create_engine(f'sqlite+pysqlite:///{root_dir}/database.db', echo=True)
-        session = sessionmaker(bind=self._engine)
-        self._session = session()
+
+        self._engine = create_async_engine(
+            url=config.database_url.get_secret_value().format(root_dir),
+            echo=True
+        )
+        self._async_session_maker = async_sessionmaker(
+            bind=self._engine,
+            class_=AsyncSession,
+            expire_on_commit=False
+        )
+
+    async def init_models(self) -> None:
+        async with self.engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
 
     @property
-    def session(self):
-        return self._session
+    def session(self) -> async_sessionmaker[AsyncSession]:
+        return self._async_session_maker
 
     @property
-    def engine(self):
+    def engine(self) -> AsyncEngine:
         return self._engine

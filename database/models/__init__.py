@@ -1,1 +1,1 @@
-from .main import register_database_models
+from .base import Base, BaseModel

@@ -2,8 +2,9 @@
 asyncio
 aiogram
 
-# SQLAlchemy
-sqlalchemy
+# Database
+SQLAlchemy
+aiosqlite
 
 # Pydantic
 pydantic

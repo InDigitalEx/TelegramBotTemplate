@@ -9,12 +9,12 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from app.handlers import handlers_router
 from app.middlewares import register_main_middlewares
 from data import config
-from database.models import register_database_models
+from database import Database
 
 
 async def __on_startup(router: Router) -> None:
     # Register DB models
-    register_database_models()
+    await Database().init_models()
 
     router.include_router(handlers_router)
     register_main_middlewares(router)

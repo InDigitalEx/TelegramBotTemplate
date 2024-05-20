@@ -1,9 +1,12 @@
 from sqlalchemy import Column, Integer
+from sqlalchemy.orm import DeclarativeBase
 
-from database import Database
+
+class Base(DeclarativeBase):
+    pass
 
 
-class BaseModel(Database().BASE):
+class BaseModel(Base):
     __abstract__ = True
 
     id = Column(Integer, primary_key=True)

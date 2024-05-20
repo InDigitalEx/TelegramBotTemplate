@@ -36,7 +36,10 @@ def init_logger() -> None:
 
 def main() -> None:
     init_logger()
-    asyncio.run(run_bot())
+    try:
+        asyncio.run(run_bot())
+    except KeyboardInterrupt:
+        logging.info('Shutting down...')
 
 
 if __name__ == "__main__":
