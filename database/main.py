@@ -19,13 +19,18 @@ class Database(metaclass=SingletonMeta):
             class_=AsyncSession,
             expire_on_commit=False
         )
+        self._session = self._async_session_maker()
 
     async def init_models(self) -> None:
         async with self.engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
 
     @property
-    def session(self) -> async_sessionmaker[AsyncSession]:
+    def session(self) -> AsyncSession:
+        return self._session
+
+    @property
+    def session_maker(self) -> async_sessionmaker[AsyncSession]:
         return self._async_session_maker
 
     @property
