@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Dict, Union
 
 from aiogram.filters import BaseFilter
 from aiogram.types import Message
@@ -8,6 +8,6 @@ from database.services import UserManager
 
 
 class HasUserDataFilter(BaseFilter):
-    async def __call__(self, message: Message) -> Union[None, User]:
-        user_manager = UserManager(message.from_user.id)
-        return await user_manager.get_user()
+    async def __call__(self, message: Message) -> Dict[str, Union[User, None]]:
+        user = await UserManager(message.from_user.id).get_user()
+        return {'user': user}
