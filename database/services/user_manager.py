@@ -7,7 +7,6 @@ from database.models import User
 class UserManager:
     def __init__(self, telegram_id: int) -> None:
         self._telegram_id = telegram_id
-        self._session_maker = Database().session_maker
 
     async def create_user(self, check_exists: bool = True) -> User:
         if check_exists:
@@ -17,14 +16,13 @@ class UserManager:
 
         # create user action
         user = User(telegram_id=self._telegram_id)
-        async with self._session_maker.begin() as session:
+        async with Database().session_scope() as session:
             session.add(user)
-            await session.commit()
         return user
 
     async def get_user(self) -> User | None:
         # find user by telegram id
-        async with self._session_maker.begin() as session:
+        async with Database().session_scope() as session:
             statement = select(User).where(User.telegram_id == self._telegram_id)
             result = await session.execute(statement)
             user = result.scalar_one_or_none()
@@ -34,8 +32,9 @@ class UserManager:
             return await self.create_user(check_exists=False)
         return user
 
-    async def get_all_users(self):
-        async with self._session_maker.begin() as session:
+    @staticmethod
+    async def get_all_users():
+        async with Database().session_scope() as session:
             statement = select(User)
             result = await session.execute(statement)
             return result.scalars().all()
