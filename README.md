@@ -7,7 +7,7 @@ Telegram bot project template
 - 🔮 [Aiogram](https://aiogram.dev/) for asynchronous framework for Telegram Bot API
 - 📦 [SQLAlchemy](https://www.sqlalchemy.org/) for database management
 - 🗃️ [Pydantic](https://pydantic.dev/) for a convenient project setup system via config
-- 🐋 [Docker Compose](https://www.docker.com) for development and production.
+- 🐋 [Docker](https://www.docker.com) for development and production.
 
 ## How To Use It
 
