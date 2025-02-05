@@ -25,7 +25,7 @@ git clone git@github.com:InDigitalEx/TelegramBotTemplate.git MyTelegramBot
 - Enter into the new directory
 
 ```bash
-cd my-full-stack
+cd MyTelegramBot
 ```
 
 - Set the new origin to your new repository, copy it from the GitHub interface, for example:
