@@ -20,4 +20,3 @@ async def __start(message: Message, user: User) -> None:
     Expects `user` to be injected into handler context by `UserMiddleware`.
     """
     await message.answer(Messages.START.format(telegram_id=user.telegram_id))
-
