@@ -1,11 +1,15 @@
 # Telegram
-asyncio
-aiogram
+aiogram>=3.7,<4
+aiohttp>=3.9
 
 # Database
-SQLAlchemy
-aiosqlite
+SQLAlchemy>=2.0,<3
+aiosqlite>=0.20
 
 # Pydantic
-pydantic
-pydantic-settings
+pydantic>=2.6
+pydantic-settings>=2.2
+
+# Utility (logging/typing)
+typing-extensions>=4.8
+

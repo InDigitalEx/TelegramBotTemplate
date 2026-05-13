@@ -8,28 +8,24 @@ class UserManager:
     def __init__(self, telegram_id: int) -> None:
         self._telegram_id = telegram_id
 
-    async def create_user(self, check_exists: bool = True) -> User:
-        if check_exists:
-            user = await self.get_user()
-            if user is not None:
-                return user
+    async def get_user(self, create: bool = False) -> User | None:
+        """Get user by telegram_id.
 
-        # create user action
-        user = User(telegram_id=self._telegram_id)
-        async with Database().session_scope() as session:
-            session.add(user)
-        return user
-
-    async def get_user(self) -> User | None:
-        # find user by telegram id
+        If `create=True` and user doesn't exist -> creates it.
+        """
         async with Database().session_scope() as session:
             statement = select(User).where(User.telegram_id == self._telegram_id)
             result = await session.execute(statement)
             user = result.scalar_one_or_none()
 
-        # if the user is not found, then create it without checking for existence
-        if user is None:
-            return await self.create_user(check_exists=False)
+        if user is None and create:
+            return await self._create_user()
+        return user
+
+    async def _create_user(self) -> User:
+        async with Database().session_scope() as session:
+            user = User(telegram_id=self._telegram_id)
+            session.add(user)
         return user
 
     @staticmethod

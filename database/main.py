@@ -19,12 +19,24 @@ class Database(metaclass=SingletonMeta):
         self._async_session_maker = async_sessionmaker(
             bind=self._engine,
             class_=AsyncSession,
-            expire_on_commit=False
+            expire_on_commit=True
         )
 
     async def init_models(self) -> None:
         async with self.engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
+
+    async def drop_models(self) -> None:
+        async with self.engine.begin() as conn:
+            await conn.run_sync(Base.metadata.drop_all)
+
+    async def clear_models(self) -> None:
+        async with self.engine.begin() as conn:
+            await conn.run_sync(Base.metadata.drop_all)
+            await conn.run_sync(Base.metadata.create_all)
+
+    async def dispose(self) -> None:
+        await self.engine.dispose()
 
     @asynccontextmanager
     async def session_scope(self):

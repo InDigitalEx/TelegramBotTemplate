@@ -2,11 +2,14 @@ from aiogram.filters import Filter
 from aiogram.types import Message
 from sqlalchemy.orm import Mapped
 
-from database.services import UserManager
+from database.models import User
 
 
 class IsAdminFilter(Filter):
-    async def __call__(self, message: Message) -> Mapped[bool]:
-        user_manager = UserManager(message.from_user.id)
-        user = await user_manager.get_user()
-        return user.is_admin
+    async def __call__(
+        self,
+        message: Message,
+        user: User | None = None,
+    ) -> Mapped[bool]:
+        # Require injected `user` from middleware to avoid extra DB queries.
+        return bool(user and user.is_admin)
