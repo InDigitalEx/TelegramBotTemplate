@@ -9,8 +9,6 @@ handlers_router = Router()
 
 @handlers_router.startup()
 async def __handlers_router_startup(router: Router) -> None:
-    router.include_routers(
-        admin_router,
-        user_router,
-        other_router
-    )
+    """Include all sub-routers into the root router."""
+    router.include_routers(admin_router, user_router, other_router)
+

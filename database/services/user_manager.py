@@ -5,13 +5,20 @@ from database.models import User
 
 
 class UserManager:
+    """High-level operations for `User` model."""
+
     def __init__(self, telegram_id: int) -> None:
+        """Initialize manager for a specific Telegram user."""
         self._telegram_id = telegram_id
 
     async def get_user(self, create: bool = False) -> User | None:
-        """Get user by telegram_id.
+        """Load a user by `telegram_id`.
 
-        If `create=True` and user doesn't exist -> creates it.
+        Args:
+            create: If `True`, create user in DB when it doesn't exist.
+
+        Returns:
+            User instance or `None` when user doesn't exist and `create=False`.
         """
         async with Database().session_scope() as session:
             statement = select(User).where(User.telegram_id == self._telegram_id)
@@ -23,13 +30,15 @@ class UserManager:
         return user
 
     async def _create_user(self) -> User:
+        """Create a new user with the manager's `telegram_id`."""
         async with Database().session_scope() as session:
             user = User(telegram_id=self._telegram_id)
             session.add(user)
         return user
 
     @staticmethod
-    async def get_all_users():
+    async def get_all_users() -> list[User]:
+        """Return all users from DB."""
         async with Database().session_scope() as session:
             statement = select(User)
             result = await session.execute(statement)
