@@ -1,6 +1,5 @@
 from aiogram.filters import Filter
 from aiogram.types import Message
-from sqlalchemy.orm import Mapped
 
 from database.models import User
 
@@ -10,6 +9,6 @@ class IsAdminFilter(Filter):
         self,
         message: Message,
         user: User | None = None,
-    ) -> Mapped[bool]:
+    ) -> bool:
         # Require injected `user` from middleware to avoid extra DB queries.
         return bool(user and user.is_admin)
