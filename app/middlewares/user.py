@@ -12,7 +12,7 @@ from database.services import UserManager
 class UserMiddleware(BaseMiddleware):
     """Inject `user` into handler data and optionally create it."""
 
-    def __init__(self, *, create: bool = False) -> None:
+    def __init__(self, *, create: bool = True) -> None:
         super().__init__()
         self._create = create
 

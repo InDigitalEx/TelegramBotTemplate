@@ -11,7 +11,7 @@ class UserManager:
         """Initialize manager for a specific Telegram user."""
         self._telegram_id = telegram_id
 
-    async def get_user(self, create: bool = False) -> User | None:
+    async def get_user(self, create: bool = True) -> User | None:
         """Load a user by `telegram_id`.
 
         Args:

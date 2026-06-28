@@ -1,9 +1,9 @@
 # Telegram
-aiogram>=3.7,<4
+aiogram>=3.7
 aiohttp>=3.9
 
 # Database
-SQLAlchemy>=2.0,<3
+SQLAlchemy>=2.0
 aiosqlite>=0.20
 
 # Pydantic

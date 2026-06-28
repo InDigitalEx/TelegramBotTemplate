@@ -8,7 +8,7 @@ class Config(BaseSettings):
     debug: bool
 
     model_config = SettingsConfigDict(
-        env_file=('config', '.config'),
+        env_file=('.env', 'config.env'),
         env_file_encoding='utf-8'
     )
 
